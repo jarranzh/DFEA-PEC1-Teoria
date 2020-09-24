@@ -1,0 +1,51 @@
+<div>
+  <h1>Test App</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="checkLogin()">
+    <label for="name">User name:</label>
+    <input type="text" [formControl]="name" />
+    <label for="password">User password:</label>
+    <input type="password" [formControl]="password" />
+    <button type="submit" [disabled]="!loginForm.valid">Login</button>
+  </form>
+</div>
+
+<span
+  style="color: red;"
+  *ngIf="
+    loginForm.get('name').errors &&
+    (loginForm.get('name').touched || loginForm.get('name').dirty)
+  "
+>
+  <span *ngIf="loginForm.get('name').errors.required"
+    >User name is required</span
+  >
+  <span
+    *ngIf="
+      loginForm.get('name').errors.minlength ||
+      loginForm.get('name').errors.maxlength
+    "
+    >User name must be greater than 8 characters</span
+  >
+  <span *ngIf="loginForm.get('name').errors.invalidWord"
+    >Administrator word is not available</span
+  >
+</span>
+
+<span
+  style="color: red;"
+  *ngIf="
+    loginForm.get('password').errors &&
+    (loginForm.get('password').touched || loginForm.get('password').dirty)
+  "
+>
+  <span *ngIf="loginForm.get('password').errors.required"
+    >User password is required</span
+  >
+  <span
+    *ngIf="
+      loginForm.get('password').errors.minlength ||
+      loginForm.get('password').errors.maxlength
+    "
+    >User password must be greater than 4 characters</span
+  >
+</span>
